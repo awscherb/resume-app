@@ -51,7 +51,7 @@ fun AboutScreen(
                         context.startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/awscherb/resume3")
+                                Uri.parse("https://github.com/awscherb/resume-app")
                             )
                         )
                     }) {
