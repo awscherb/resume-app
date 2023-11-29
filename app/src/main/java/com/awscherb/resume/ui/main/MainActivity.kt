@@ -3,12 +3,14 @@ package com.awscherb.resume.ui.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Divider
-import com.awscherb.resume.ui.theme.Typography
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -16,19 +18,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.awscherb.resume.R
 import com.awscherb.resume.data.Loading
+import com.awscherb.resume.ui.ResumeViewModel
 import com.awscherb.resume.ui.about.AboutScreen
 import com.awscherb.resume.ui.resume.HomeScreen
-import com.awscherb.resume.ui.ResumeViewModel
+import com.awscherb.resume.ui.theme.Typography
 import com.awscherb.resume.ui.util.getAppVersion
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,6 +50,9 @@ class MainActivity : ComponentActivity() {
 
             val vm = hiltViewModel<ResumeViewModel>()
             val resumeState by vm.resume.collectAsState(initial = Loading())
+            var currentDestination by remember {
+                mutableStateOf("resume")
+            }
 
             ModalNavigationDrawer(
                 drawerState = drawerState,
@@ -64,32 +71,34 @@ class MainActivity : ComponentActivity() {
                         Divider()
                         NavigationDrawerItem(
                             label = { Text("Resume") },
-                            selected = false,
+                            selected = currentDestination == "resume",
                             icon = {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_resume),
-                                    contentDescription = "Resume"
-                                )
-
+                                Icon(Icons.Default.Home, contentDescription = "Resume")
                             },
                             onClick = {
-                                navController.navigate("resume")
+                                navController.navigate("resume") {
+                                    popUpTo("about") {
+                                        inclusive = true
+                                    }
+                                }
+                                currentDestination = "resume"
                                 scope.launch {
                                     drawerState.close()
                                 }
                             })
                         NavigationDrawerItem(
                             label = { Text("About") },
-                            selected = false,
+                            selected = currentDestination == "about",
                             icon = {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_info),
-                                    contentDescription = "About"
-                                )
-
+                                Icon(Icons.Default.Info, contentDescription = "About")
                             },
                             onClick = {
-                                navController.navigate("about")
+                                currentDestination = "about"
+                                navController.navigate("about") {
+                                    popUpTo("resume") {
+                                        inclusive = true
+                                    }
+                                }
                                 scope.launch {
                                     drawerState.close()
                                 }
@@ -112,5 +121,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
