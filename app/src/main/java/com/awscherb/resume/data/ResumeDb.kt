@@ -11,7 +11,8 @@ import androidx.room.RoomDatabase
         ResumeEntity::class,
         RoleEntity::class,
     ],
-    version = 9
+    version = 9,
+    exportSchema = true
 )
 abstract class ResumeDb : RoomDatabase() {
     abstract fun resumeDao(): ResumeDao

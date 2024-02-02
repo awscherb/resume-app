@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.awscherb.resume.ui.resume
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.awscherb.resume.data.LoadState
 import com.awscherb.resume.data.Resume
