@@ -107,3 +107,21 @@ data class EducationEntity(
         order = response.order
     )
 }
+
+@Entity
+data class ProjectsMetaEntity(
+    @PrimaryKey
+    val version: Int,
+    val versionDate: Long
+)
+
+@Entity(primaryKeys = ["name", "order"])
+data class ProjectEntity(
+    val name: String,
+    val shortDescription: String,
+    val longDescription: String?,
+    val mainLink: String,
+    val secondaryLink: String?,
+    val order: Int,
+    val metaVersion: Int
+)

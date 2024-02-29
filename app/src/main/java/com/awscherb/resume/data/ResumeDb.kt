@@ -10,10 +10,14 @@ import androidx.room.RoomDatabase
         JobEntity::class,
         ResumeEntity::class,
         RoleEntity::class,
+        ProjectsMetaEntity::class,
+        ProjectEntity::class,
     ],
-    version = 9,
+    version = 10,
     exportSchema = true
 )
 abstract class ResumeDb : RoomDatabase() {
     abstract fun resumeDao(): ResumeDao
+
+    abstract fun projectDao(): ProjectDao
 }

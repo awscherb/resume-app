@@ -1,5 +1,7 @@
 package com.awscherb.resume.data
 
+import java.util.Date
+
 data class Resume(
     val name: String,
     val email: String,
@@ -96,3 +98,18 @@ fun ResumeEntity.toModel(
         education = education.map { it.toEducation() }
     )
 }
+
+data class Projects(
+    val version: Int,
+    val versionDate: Date,
+    val projects: List<Project>
+)
+
+data class Project(
+    val name: String,
+    val shortDescription: String,
+    val longDescription: String?,
+    val mainLink: String,
+    val secondaryLink: String?,
+    val order: Int,
+)

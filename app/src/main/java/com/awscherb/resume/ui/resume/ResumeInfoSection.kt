@@ -18,12 +18,12 @@ fun ResumeInfo(version: Int, date: Long) {
             text = "Resume version $version",
             fontStyle = FontStyle.Italic
         )
-        Text(text = "Published: ${Date(date * 1000)}",
+        Text(text = "Published: ${Date(date)}",
             fontStyle = FontStyle.Italic)
     }
 }
 
-@Preview
+@Preview(apiLevel = 33)
 @Composable
 fun ResumeInfoPreview() {
     Resume3Theme {

@@ -46,3 +46,18 @@ data class EducationResponse(
     val resultYear: Int,
     val order :Int
 )
+
+data class ProjectsResponse(
+    val version: Int,
+    val versionDate: Long,
+    val projects: List<ProjectResponse>
+)
+
+data class ProjectResponse(
+    val name: String,
+    val shortDescription: String,
+    val longDescription: String?,
+    val mainLink: String,
+    val secondaryLink: String?,
+    val order: Int
+)
