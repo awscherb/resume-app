@@ -7,20 +7,17 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.awscherb.resume.data.Loading
-import com.awscherb.resume.ui.ResumeViewModel
 import com.awscherb.resume.ui.about.AboutScreen
-import com.awscherb.resume.ui.resume.HomeScreen
+import com.awscherb.resume.ui.projects.ProjectsScreen
+import com.awscherb.resume.ui.resume.ResumeScreen
 import com.awscherb.resume.ui.theme.Resume3Theme
 import com.awscherb.resume.ui.util.getAppVersion
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,8 +35,6 @@ class MainActivity : ComponentActivity() {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
 
-                val vm = hiltViewModel<ResumeViewModel>()
-                val resumeState by vm.resume.collectAsState(initial = Loading())
                 var currentDestination by remember {
                     mutableStateOf<Destination>(startDestination)
                 }
@@ -64,7 +59,12 @@ class MainActivity : ComponentActivity() {
                         startDestination = startDestination.path
                     ) {
                         composable(Destination.Resume.path) {
-                            HomeScreen(loadState = resumeState) {
+                            ResumeScreen {
+                                scope.launch { drawerState.open() }
+                            }
+                        }
+                        composable(Destination.Projects.path) {
+                            ProjectsScreen {
                                 scope.launch { drawerState.open() }
                             }
                         }

@@ -1,5 +1,6 @@
 package com.awscherb.resume.di
 
+import com.awscherb.resume.data.ProjectsApi
 import com.awscherb.resume.data.ResumeApi
 import dagger.Module
 import dagger.Provides
@@ -36,6 +37,11 @@ class ApiModule {
     @Provides
     @Singleton
     fun provideResumeApi(retrofit: Retrofit): ResumeApi =
-        retrofit.create(ResumeApi::class.java)
+        retrofit.create<ResumeApi>()
+
+    @Provides
+    @Singleton
+    fun provideProjectsApi(retrofit: Retrofit): ProjectsApi =
+        retrofit.create<ProjectsApi>()
 
 }

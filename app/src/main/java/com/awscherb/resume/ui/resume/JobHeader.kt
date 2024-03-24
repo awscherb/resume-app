@@ -39,7 +39,7 @@ fun JobHeader(job: Job) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 33)
 @Composable
 fun JobHeaderPreview() {
     Resume3Theme {

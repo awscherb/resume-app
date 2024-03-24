@@ -2,6 +2,7 @@ package com.awscherb.resume.di
 
 import android.content.Context
 import androidx.room.Room
+import com.awscherb.resume.data.ProjectDao
 import com.awscherb.resume.data.ResumeDao
 import com.awscherb.resume.data.ResumeDb
 import dagger.Module
@@ -29,5 +30,8 @@ class DatabaseModule {
 
     @Provides
     fun provideResumeDao(db: ResumeDb): ResumeDao = db.resumeDao()
+
+    @Provides
+    fun provideProjectsDao(db: ResumeDb): ProjectDao = db.projectDao()
 
 }

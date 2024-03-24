@@ -3,6 +3,7 @@ package com.awscherb.resume.ui.main
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
@@ -30,12 +31,18 @@ fun NavDrawerContent(
         ),
         style = Typography.headlineLarge
     )
-    Divider()
+    HorizontalDivider()
     NavDrawerRow(
         selectedItem = selectedItem,
         destination = Destination.Resume,
         topLevelNav = topLevelNav
     )
+    NavDrawerRow(
+        selectedItem = selectedItem,
+        destination = Destination.Projects,
+        topLevelNav = topLevelNav
+    )
+    HorizontalDivider()
 
     NavDrawerRow(
         selectedItem = selectedItem,
