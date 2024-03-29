@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,13 +36,28 @@ fun ProjectDetail(
 
         val uriHandler = LocalUriHandler.current
         Text(
-            modifier = Modifier.clickable {
-                uriHandler.openUri(project.mainLink)
-            },
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .clickable {
+                    uriHandler.openUri(project.mainLink)
+                },
             textDecoration = TextDecoration.Underline,
             text = project.mainLink,
-            style = Typography.labelMedium
+            fontWeight = FontWeight.Light
         )
+
+        project.secondaryLink?.let { secondary ->
+            Text(
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .clickable {
+                        uriHandler.openUri(secondary)
+                    },
+                textDecoration = TextDecoration.Underline,
+                text = secondary,
+                fontWeight = FontWeight.Light
+            )
+        }
 
         project.longDescription?.let { longDesc ->
             Text(
@@ -63,8 +78,8 @@ fun ProjectPreview() {
                 "Project",
                 "Short Description",
                 "Long Description",
-                "http://www.com",
-                null,
+                "http://www.primary.com",
+                "http://www.secondary.com",
                 0
             )
         )
